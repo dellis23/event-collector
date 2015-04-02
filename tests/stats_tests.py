@@ -9,6 +9,7 @@ class StatsTests(unittest.TestCase):
     def test_no_address(self):
         client = events.stats.StatsClient()
         client.count("test")
+        self.assertIsNone(client.sock)
 
     @mock.patch("socket.socket")
     def test_send_message(self, mock_socket):
