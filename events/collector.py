@@ -61,7 +61,7 @@ def wrap_and_serialize_event(request, event):
     """Wrap the client-sent event with some additional fields and serialize."""
     return json.dumps({
         "ip": request.environ["REMOTE_ADDR"],
-        "time": datetime.datetime.utcnow().isoformat(),
+        "time": request.environ["events.start_time"].isoformat(),
         "event": event,
     })
 
@@ -101,6 +101,8 @@ class EventCollector(object):
         put into the queue instead.
 
         """
+
+        request.environ["events.start_time"] = datetime.datetime.utcnow()
 
         if request.content_length > _MAXIMUM_CONTENT_LENGTH:
             self.stats_client.count("client-error.too-big")
