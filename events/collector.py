@@ -98,7 +98,7 @@ class EventCollector(object):
 
         If the payload is valid, the events it contains will be put onto the
         event queue.  If there are issues with the request, error events will be
-        put into the queue instead.
+        put into the error queue instead.
 
         """
 
